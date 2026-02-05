@@ -1,355 +1,1259 @@
-<html lang="en"><head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ZP Tech Mega Menu</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ZP Tech - Premium Health & Tech Solutions</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
     <style>
-        /* Scoped CSS for #zp-mega-menu */
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #F8FAFC;
-        }
+      /* Reset & Base Styles */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
 
+      body {
+        font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
+          sans-serif;
+        background-color: #f8fafc;
+        color: #333333;
+        line-height: 1.6;
+      }
+
+      /* ============================================
+           MEGA MENU OPTIMIZED STYLES (#zp-mega-menu)
+           ============================================ */
+
+      #zp-mega-menu {
+        will-change: opacity, transform, visibility;
+        contain: layout style paint;
+        backface-visibility: hidden;
+      }
+
+      /* DESKTOP: Fade & Slide-Up Animation (0.3s) */
+      @media (min-width: 1024px) {
         #zp-mega-menu {
-            transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
+          position: absolute;
+          top: 100%;
+          left: 0;
+          right: 0;
+          background: rgba(255, 255, 255, 0.95);
+          backdrop-filter: blur(12px);
+          border-top: 1px solid #f3f4f6;
+          box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.05);
+          z-index: 40;
+
+          transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+            transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+            visibility 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+          pointer-events: none;
+          opacity: 0;
+          visibility: hidden;
+          transform: translateY(-10px);
         }
 
-        /* Desktop State: Hidden by default, standard dropdown behavior */
-        @media (min-width: 1024px) {
-            #zp-mega-menu:not(.active) {
-                opacity: 0;
-                visibility: hidden;
-                transform: translateY(10px);
-            }
-            #zp-mega-menu.active {
-                opacity: 1;
-                visibility: visible;
-                transform: translateY(0);
-            }
+        #zp-mega-menu.active {
+          opacity: 1;
+          visibility: visible;
+          transform: translateY(0);
+          pointer-events: auto;
+        }
+      }
+
+      /* MOBILE: Accordion Drawer (< 1024px) */
+      @media (max-width: 1023px) {
+        #zp-mega-menu {
+          position: relative !important;
+          top: 0 !important;
+          background: #ffffff;
+          border-top: 1px solid #f3f4f6;
+          box-shadow: none;
+          max-height: 0;
+          overflow: hidden;
+
+          transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+            opacity 0.3s ease;
+
+          opacity: 0;
+          visibility: hidden;
         }
 
-        /* Mobile State: Accordion behavior */
-        @media (max-width: 1023px) {
-            #zp-mega-menu {
-                position: relative;
-                top: 0;
-                box-shadow: none;
-                border-top: none;
-                max-height: 0;
-                overflow: hidden;
-                opacity: 1; /* Always visible for animation logic */
-                transform: none;
-                transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            }
-            #zp-mega-menu.active {
-                max-height: 2000px; /* Arbitrary large number for accordion expansion */
-            }
+        #zp-mega-menu.active {
+          max-height: 2000px;
+          opacity: 1;
+          visibility: visible;
         }
+      }
 
-        /* Custom Scrollbar for sleekness */
-        ::-webkit-scrollbar {
-            width: 6px;
+      /* Category Card Styles */
+      #zp-mega-menu .category-card {
+        display: block;
+        text-align: center;
+        padding: 1rem;
+        border-radius: 0.75rem;
+        border: 1px solid transparent;
+        text-decoration: none;
+        color: inherit;
+
+        will-change: transform, background-color, box-shadow;
+        contain: layout style;
+        transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      #zp-mega-menu .category-card:hover {
+        background-color: #ffffff;
+        border-color: #dbeafe;
+        box-shadow: 0 4px 20px -4px rgba(0, 174, 239, 0.1);
+      }
+
+      /* Icon Container with Smooth Transition */
+      #zp-mega-menu .card-icon {
+        width: 4rem;
+        height: 4rem;
+        margin: 0 auto 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #f3f4f6;
+        border-radius: 0.5rem;
+
+        will-change: transform, background-color;
+        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+          background-color 0.2s ease;
+      }
+
+      #zp-mega-menu .category-card:hover .card-icon {
+        transform: scale(1.1);
+        background-color: #eff6ff;
+      }
+
+      #zp-mega-menu .card-icon svg {
+        width: 2.5rem;
+        height: 2.5rem;
+        flex-shrink: 0;
+      }
+
+      /* Card Title */
+      #zp-mega-menu .card-title {
+        font-size: 1rem;
+        font-weight: 600;
+        color: #333333;
+        transition: color 0.2s ease;
+      }
+
+      #zp-mega-menu .category-card:hover .card-title {
+        color: #00aeef;
+      }
+
+      /* Featured Product Box */
+      #zp-mega-menu .featured-box {
+        position: relative;
+        height: 100%;
+        background-color: #f8fafc;
+        border-radius: 1.5rem;
+        padding: 1.5rem;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+        overflow: hidden;
+        border: 1px solid #e5e7eb;
+
+        will-change: transform, box-shadow;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      #zp-mega-menu .featured-box:hover {
+        box-shadow: 0 12px 40px -10px rgba(0, 174, 239, 0.15);
+      }
+
+      #zp-mega-menu .featured-box:hover img {
+        transform: scale(1.05);
+      }
+
+      /* Featured Image */
+      #zp-mega-menu .featured-image {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        margin-bottom: 1.5rem;
+      }
+
+      #zp-mega-menu .featured-image img {
+        height: 10rem;
+        object-fit: contain;
+        filter: drop-shadow(0 10px 15px -3px rgba(0, 0, 0, 0.1));
+        transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      /* Best Seller Badge */
+      #zp-mega-menu .badge {
+        display: inline-block;
+        padding: 0.25rem 0.75rem;
+        background-color: #ffffff;
+        color: #00aeef;
+        font-size: 0.75rem;
+        font-weight: 700;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+        border-radius: 9999px;
+        box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+        margin-bottom: 1rem;
+      }
+
+      /* Featured Title & Description */
+      #zp-mega-menu .featured-title {
+        font-size: 1.25rem;
+        font-weight: 600;
+        letter-spacing: -0.025em;
+        color: #333333;
+        margin-bottom: 0.25rem;
+      }
+
+      #zp-mega-menu .featured-description {
+        font-size: 1rem;
+        color: #6b7280;
+        margin-bottom: 1.5rem;
+        line-height: 1.5;
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+      }
+
+      /* CTA Button */
+      #zp-mega-menu .btn-cta {
+        width: 100%;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.75rem 1.5rem;
+        background-color: #00aeef;
+        color: #ffffff;
+        font-weight: 500;
+        font-size: 1rem;
+        border-radius: 9999px;
+        border: none;
+        cursor: pointer;
+        text-decoration: none;
+        box-shadow: 0 10px 15px -3px rgba(0, 174, 239, 0.3);
+
+        transition: background-color 0.2s ease, box-shadow 0.2s ease;
+      }
+
+      #zp-mega-menu .btn-cta:hover {
+        background-color: #0096c7;
+        box-shadow: 0 12px 20px -3px rgba(0, 174, 239, 0.4);
+      }
+
+      /* Background Decoration */
+      #zp-mega-menu .featured-decoration {
+        position: absolute;
+        right: -2.5rem;
+        bottom: -2.5rem;
+        width: 10rem;
+        height: 10rem;
+        background-color: #e0f2fe;
+        border-radius: 50%;
+        filter: blur(3rem);
+        opacity: 0.5;
+        pointer-events: none;
+      }
+
+      /* Container Width & Spacing */
+      #zp-mega-menu .menu-container {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 0 1.5rem;
+        padding-top: 1.5rem;
+        padding-bottom: 2.5rem;
+      }
+
+      @media (min-width: 1024px) {
+        #zp-mega-menu .menu-container {
+          padding-top: 2.5rem;
+          padding-bottom: 2.5rem;
         }
-        ::-webkit-scrollbar-track {
-            background: transparent;
+      }
+
+      /* Grid Layout */
+      #zp-mega-menu .menu-content {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+      }
+
+      @media (min-width: 1024px) {
+        #zp-mega-menu .menu-content {
+          flex-direction: row;
+          gap: 2rem;
         }
-        ::-webkit-scrollbar-thumb {
-            background: #E2E8F0;
-            border-radius: 3px;
+      }
+
+      #zp-mega-menu .categories-grid {
+        flex: 1;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+      }
+
+      @media (min-width: 768px) {
+        #zp-mega-menu .categories-grid {
+          grid-template-columns: repeat(3, 1fr);
         }
+      }
+
+      @media (min-width: 1024px) {
+        #zp-mega-menu .categories-grid {
+          grid-template-columns: repeat(5, 1fr);
+          gap: 1.5rem;
+        }
+      }
+
+      #zp-mega-menu .featured-section {
+        width: 100%;
+      }
+
+      @media (min-width: 1024px) {
+        #zp-mega-menu .featured-section {
+          width: 18rem;
+          flex-shrink: 0;
+        }
+      }
+
+      /* ============================================
+           HEADER & NAVIGATION STYLES
+           ============================================ */
+
+      .announcement-bar {
+        background-color: #00aeef;
+        color: #ffffff;
+        font-size: 0.875rem;
+        text-align: center;
+        padding: 0.5rem 0;
+        font-weight: 500;
+        letter-spacing: 0.025em;
+      }
+
+      header {
+        background-color: #ffffff;
+        border-bottom: 1px solid #f3f4f6;
+        position: relative;
+        z-index: 50;
+      }
+
+      .header-content {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 0 1.5rem;
+        padding-top: 1.25rem;
+        padding-bottom: 1.25rem;
+      }
+
+      .header-top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 2rem;
+        margin-bottom: 1rem;
+      }
+
+      .logo {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        flex-shrink: 0;
+        text-decoration: none;
+        color: #333333;
+      }
+
+      .logo-text {
+        font-size: 1.5rem;
+        font-weight: 600;
+        letter-spacing: -0.025em;
+      }
+
+      .logo-text span {
+        color: #00aeef;
+      }
+
+      .search-bar {
+        display: none;
+        flex: 1;
+        max-width: 28rem;
+        position: relative;
+      }
+
+      @media (min-width: 768px) {
+        .search-bar {
+          display: flex;
+        }
+      }
+
+      .search-bar input {
+        width: 100%;
+        background-color: #f9fafb;
+        border: 1px solid #e5e7eb;
+        border-radius: 9999px;
+        padding: 0.75rem 1.25rem 0.75rem 1.25rem;
+        font-size: 1rem;
+        outline: none;
+        transition: all 0.3s ease;
+      }
+
+      .search-bar input:focus {
+        border-color: #00aeef;
+        box-shadow: 0 0 0 3px rgba(0, 174, 239, 0.1);
+      }
+
+      .search-bar::after {
+        content: "";
+        position: absolute;
+        right: 1rem;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 1.25rem;
+        height: 1.25rem;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%23999' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='11' cy='11' r='8'%3E%3C/circle%3E%3Cpath d='m21 21-4.3-4.3'%3E%3C/path%3E%3C/svg%3E");
+        background-size: contain;
+        background-repeat: no-repeat;
+        pointer-events: none;
+      }
+
+      .utility-icons {
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+      }
+
+      .icon-button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: none;
+        border: none;
+        cursor: pointer;
+        color: #333333;
+        transition: color 0.2s ease;
+        position: relative;
+        width: 1.5rem;
+        height: 1.5rem;
+      }
+
+      .icon-button:hover {
+        color: #00aeef;
+      }
+
+      .icon-button svg {
+        width: 100%;
+        height: 100%;
+        stroke: currentColor;
+        fill: none;
+        stroke-width: 1.5;
+      }
+
+      .badge-count {
+        position: absolute;
+        top: -0.25rem;
+        right: -0.25rem;
+        background-color: #00aeef;
+        color: #ffffff;
+        font-size: 0.625rem;
+        font-weight: 700;
+        width: 1rem;
+        height: 1rem;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      /* Navigation Strip */
+      .nav-strip {
+        border-top: 1px solid #f3f4f6;
+      }
+
+      .nav-content {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 0 1.5rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+      }
+
+      @media (min-width: 1024px) {
+        .nav-content {
+          flex-direction: row;
+          align-items: center;
+          justify-content: space-between;
+        }
+      }
+
+      .nav-list {
+        display: flex;
+        flex-direction: column;
+        list-style: none;
+        gap: 0;
+      }
+
+      @media (min-width: 1024px) {
+        .nav-list {
+          flex-direction: row;
+          align-items: center;
+          gap: 2rem;
+        }
+      }
+
+      .nav-item {
+        border-bottom: 1px solid #f9fafb;
+        padding: 0;
+      }
+
+      @media (min-width: 1024px) {
+        .nav-item {
+          border-bottom: none;
+          padding: 0;
+        }
+      }
+
+      .menu-trigger {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.75rem;
+        font-weight: 600;
+        color: #333333;
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-size: 1rem;
+        padding: 1rem 0;
+        width: 100%;
+        transition: color 0.2s ease;
+      }
+
+      @media (min-width: 1024px) {
+        .menu-trigger {
+          width: auto;
+          padding: 1rem 0;
+          justify-content: flex-start;
+        }
+      }
+
+      .menu-trigger:hover {
+        color: #00aeef;
+      }
+
+      .menu-trigger svg {
+        flex-shrink: 0;
+      }
+
+      .chevron {
+        width: 1rem;
+        height: 1rem;
+        transition: transform 0.3s ease;
+      }
+
+      @media (min-width: 1024px) {
+        .chevron {
+          display: none;
+        }
+      }
+
+      .nav-link {
+        font-size: 1rem;
+        font-weight: 500;
+        color: #4b5563;
+        text-decoration: none;
+        padding: 1rem 0;
+        display: block;
+        transition: color 0.2s ease;
+      }
+
+      .nav-link:hover {
+        color: #00aeef;
+      }
+
+      .contact-info {
+        display: none;
+        padding: 1rem 0;
+        font-size: 1rem;
+        color: #6b7280;
+        font-weight: 500;
+      }
+
+      @media (min-width: 1024px) {
+        .contact-info {
+          display: block;
+        }
+      }
+
+      /* ============================================
+           MAIN CONTENT
+           ============================================ */
+
+      main {
+        position: relative;
+        z-index: 10;
+        background-color: #f8fafc;
+        min-height: 100vh;
+      }
+
+      .main-content {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 0 1.5rem;
+        padding-top: 5rem;
+        padding-bottom: 5rem;
+      }
+
+      .hero-text {
+        text-align: center;
+        max-width: 42rem;
+        margin: 0 auto;
+      }
+
+      .hero-heading {
+        font-size: 2.25rem;
+        line-height: 1.2;
+        font-weight: 600;
+        letter-spacing: -0.025em;
+        color: #333333;
+        margin-bottom: 1.5rem;
+      }
+
+      @media (min-width: 768px) {
+        .hero-heading {
+          font-size: 3rem;
+        }
+      }
+
+      .hero-subheading {
+        font-size: 1.125rem;
+        color: #6b7280;
+      }
+
+      /* Custom Scrollbar */
+      ::-webkit-scrollbar {
+        width: 6px;
+      }
+
+      ::-webkit-scrollbar-track {
+        background: transparent;
+      }
+
+      ::-webkit-scrollbar-thumb {
+        background: #e2e8f0;
+        border-radius: 3px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        background: #cbd5e1;
+      }
     </style>
-</head>
-<body class="text-[#333333]">
-
-    <!-- Top Announcement Bar -->
-    <div class="bg-[#00AEEF] text-white text-sm text-center py-2 font-medium tracking-wide">
-        Save up to 10% on all products with "GET20OFF" code
+  </head>
+  <body>
+    <!-- Announcement Bar -->
+    <div class="announcement-bar">
+      Save up to 10% on all products with "GET20OFF" code
     </div>
 
-    <!-- Header Section -->
-    <header class="bg-white border-b border-gray-100 relative z-50">
-        <!-- Main Header Content -->
-        <div class="max-w-[1400px] mx-auto px-6 py-5">
-            <div class="flex items-center justify-between gap-8">
-                
-                <!-- Logo -->
-                <a href="#" class="flex items-center gap-2 shrink-0">
-                    <div class="text-2xl font-semibold tracking-tight text-[#333333]">
-                        ZP<span class="text-[#00AEEF]">.TECH</span>
-                    </div>
-                </a>
+    <!-- Header -->
+    <header>
+      <div class="header-content">
+        <div class="header-top">
+          <!-- Logo -->
+          <a href="#" class="logo">
+            <div class="logo-text">ZP<span>.TECH</span></div>
+          </a>
 
-                <!-- Search Bar (Hidden on small mobile for space) -->
-                <div class="hidden md:flex flex-1 max-w-xl relative group">
-                    <input type="text" placeholder="Search products..." class="w-full bg-gray-50 border border-gray-200 rounded-full py-3 pl-5 pr-12 text-base outline-none focus:ring-2 focus:ring-[#00AEEF]/20 focus:border-[#00AEEF] transition-all duration-300">
-                    <button class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-[#00AEEF]">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg>
-                    </button>
+          <!-- Search Bar -->
+          <div class="search-bar">
+            <input type="text" placeholder="Search products..." />
+          </div>
+
+          <!-- Utility Icons -->
+          <div class="utility-icons">
+            <button class="icon-button" title="Account">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
+                <circle cx="12" cy="7" r="4"></circle>
+              </svg>
+            </button>
+            <button class="icon-button" title="Wishlist">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path
+                  d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"
+                ></path>
+              </svg>
+              <span class="badge-count">0</span>
+            </button>
+            <button class="icon-button" title="Cart">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <circle cx="8" cy="21" r="1"></circle>
+                <circle cx="19" cy="21" r="1"></circle>
+                <path
+                  d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"
+                ></path>
+              </svg>
+              <span class="badge-count">0</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Navigation Strip -->
+      <div class="nav-strip">
+        <div class="nav-content">
+          <ul class="nav-list">
+            <li class="nav-item">
+              <button id="menu-trigger" class="menu-trigger">
+                <div style="display: flex; align-items: center; gap: 0.75rem">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <line x1="4" x2="20" y1="12" y2="12"></line>
+                    <line x1="4" x2="20" y1="6" y2="6"></line>
+                    <line x1="4" x2="20" y1="18" y2="18"></line>
+                  </svg>
+                  <span>Shop by Categories</span>
+                </div>
+                <svg
+                  class="chevron"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="m6 9 6 6 6-6"></path>
+                </svg>
+              </button>
+            </li>
+            <li class="nav-item" style="display: none">
+              <a href="#" class="nav-link">Shop</a>
+            </li>
+            <li class="nav-item" style="display: none">
+              <a href="#" class="nav-link">Knowledge Base</a>
+            </li>
+            <li class="nav-item" style="display: none">
+              <a href="#" class="nav-link">Fulfillment</a>
+            </li>
+            <li class="nav-item" style="display: none">
+              <a href="#" class="nav-link">Bulk Ingredients</a>
+            </li>
+          </ul>
+          <div class="contact-info">Call Us: +801-725-6768</div>
+        </div>
+      </div>
+
+      <!-- MEGA MENU -->
+      <div id="zp-mega-menu">
+        <div class="menu-container">
+          <div class="menu-content">
+            <!-- Categories Grid -->
+            <div class="categories-grid">
+              <!-- Card 1: Powders -->
+              <a href="#" class="category-card">
+                <div class="card-icon">
+                  <svg
+                    width="40"
+                    height="40"
+                    viewBox="0 0 40 40"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M10 15H30V25C30 27.7614 27.7614 30 25 30H15C12.2386 30 10 27.7614 10 25V15Z"
+                      stroke="#333333"
+                      stroke-width="1.5"
+                      fill="none"
+                    />
+                    <circle cx="15" cy="10" r="2" fill="#333333" />
+                    <circle cx="20" cy="8" r="2" fill="#333333" />
+                    <circle cx="25" cy="10" r="2" fill="#333333" />
+                    <path
+                      d="M13 18H27M13 22H27"
+                      stroke="#333333"
+                      stroke-width="1"
+                      stroke-linecap="round"
+                    />
+                  </svg>
+                </div>
+                <h3 class="card-title">Powders</h3>
+              </a>
+
+              <!-- Card 2: Liquid -->
+              <a href="#" class="category-card">
+                <div class="card-icon">
+                  <svg
+                    width="40"
+                    height="40"
+                    viewBox="0 0 40 40"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M20 8V20C20 25.5228 15.5228 30 10 30H30C24.4772 30 20 25.5228 20 20V8"
+                      stroke="#333333"
+                      stroke-width="1.5"
+                      fill="none"
+                      stroke-linecap="round"
+                    />
+                    <path
+                      d="M16 8H24"
+                      stroke="#333333"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                    />
+                    <path
+                      d="M18 4H22"
+                      stroke="#333333"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                    />
+                  </svg>
+                </div>
+                <h3 class="card-title">Liquid</h3>
+              </a>
+
+              <!-- Card 3: Frequency -->
+              <a href="#" class="category-card">
+                <div class="card-icon">
+                  <svg
+                    width="40"
+                    height="40"
+                    viewBox="0 0 40 40"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M10 20H30M15 12V28M20 8V32M25 14V26"
+                      stroke="#333333"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                    />
+                    <circle
+                      cx="20"
+                      cy="20"
+                      r="12"
+                      stroke="#333333"
+                      stroke-width="1.5"
+                      fill="none"
+                    />
+                  </svg>
+                </div>
+                <h3 class="card-title">Frequency</h3>
+              </a>
+
+              <!-- Card 4: Moringa Oils -->
+              <a href="#" class="category-card">
+                <div class="card-icon">
+                  <svg
+                    width="40"
+                    height="40"
+                    viewBox="0 0 40 40"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M20 6C20 6 15 12 15 18C15 23.5228 17.2386 26 20 26C22.7614 26 25 23.5228 25 18C25 12 20 6 20 6Z"
+                      stroke="#333333"
+                      stroke-width="1.5"
+                      fill="none"
+                    />
+                    <circle
+                      cx="20"
+                      cy="26"
+                      r="6"
+                      stroke="#333333"
+                      stroke-width="1.5"
+                      fill="none"
+                    />
+                    <path
+                      d="M20 8L18 14M20 8L22 14M20 8L20 12"
+                      stroke="#333333"
+                      stroke-width="1"
+                      stroke-linecap="round"
+                    />
+                  </svg>
+                </div>
+                <h3 class="card-title">Moringa Oils</h3>
+              </a>
+
+              <!-- Card 5: Supplements -->
+              <a href="#" class="category-card">
+                <div class="card-icon">
+                  <svg
+                    width="40"
+                    height="40"
+                    viewBox="0 0 40 40"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <rect
+                      x="12"
+                      y="14"
+                      width="6"
+                      height="10"
+                      rx="1"
+                      stroke="#333333"
+                      stroke-width="1.5"
+                      fill="none"
+                    />
+                    <rect
+                      x="22"
+                      y="14"
+                      width="6"
+                      height="10"
+                      rx="1"
+                      stroke="#333333"
+                      stroke-width="1.5"
+                      fill="none"
+                    />
+                    <path
+                      d="M15 28H25"
+                      stroke="#333333"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                    />
+                    <path
+                      d="M17 10H23V14H17V10Z"
+                      stroke="#333333"
+                      stroke-width="1.5"
+                      fill="none"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </div>
+                <h3 class="card-title">Supplements</h3>
+              </a>
+
+              <!-- Card 6: Dog Minerals -->
+              <a href="#" class="category-card">
+                <div class="card-icon">
+                  <svg
+                    width="40"
+                    height="40"
+                    viewBox="0 0 40 40"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <circle
+                      cx="12"
+                      cy="12"
+                      r="3"
+                      stroke="#333333"
+                      stroke-width="1.5"
+                      fill="none"
+                    />
+                    <circle
+                      cx="28"
+                      cy="12"
+                      r="3"
+                      stroke="#333333"
+                      stroke-width="1.5"
+                      fill="none"
+                    />
+                    <circle
+                      cx="20"
+                      cy="28"
+                      r="3"
+                      stroke="#333333"
+                      stroke-width="1.5"
+                      fill="none"
+                    />
+                    <path
+                      d="M15 14C17 18 23 18 25 14M20 25C20 22 19 19 20 18"
+                      stroke="#333333"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                    />
+                  </svg>
+                </div>
+                <h3 class="card-title">Dog Minerals</h3>
+              </a>
+
+              <!-- Card 7: Bath Crystals -->
+              <a href="#" class="category-card">
+                <div class="card-icon">
+                  <svg
+                    width="40"
+                    height="40"
+                    viewBox="0 0 40 40"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M12 20L18 10L20 14L24 8L30 20H12Z"
+                      stroke="#333333"
+                      stroke-width="1.5"
+                      fill="none"
+                      stroke-linejoin="round"
+                    />
+                    <circle cx="16" cy="13" r="1" fill="#333333" />
+                    <circle cx="24" cy="11" r="1" fill="#333333" />
+                    <path
+                      d="M10 28H30"
+                      stroke="#333333"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                    />
+                    <path
+                      d="M12 28L13 24H27L28 28"
+                      stroke="#333333"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </div>
+                <h3 class="card-title">Bath Crystals</h3>
+              </a>
+
+              <!-- Card 8: Ormus Earth -->
+              <a href="#" class="category-card">
+                <div class="card-icon">
+                  <svg
+                    width="40"
+                    height="40"
+                    viewBox="0 0 40 40"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <circle
+                      cx="20"
+                      cy="20"
+                      r="12"
+                      stroke="#333333"
+                      stroke-width="1.5"
+                      fill="none"
+                    />
+                    <path
+                      d="M20 8V32M8 20H32"
+                      stroke="#333333"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                    />
+                    <circle cx="20" cy="14" r="1.5" fill="#333333" />
+                    <circle cx="20" cy="26" r="1.5" fill="#333333" />
+                    <circle cx="14" cy="20" r="1.5" fill="#333333" />
+                    <circle cx="26" cy="20" r="1.5" fill="#333333" />
+                  </svg>
+                </div>
+                <h3 class="card-title">Ormus Earth</h3>
+              </a>
+
+              <!-- Card 9: Ghee -->
+              <a href="#" class="category-card">
+                <div class="card-icon">
+                  <svg
+                    width="40"
+                    height="40"
+                    viewBox="0 0 40 40"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M12 18C12 13.5817 15.5817 10 20 10C24.4183 10 28 13.5817 28 18V26C28 27.1046 27.1046 28 26 28H14C12.8954 28 12 27.1046 12 26V18Z"
+                      stroke="#333333"
+                      stroke-width="1.5"
+                      fill="none"
+                    />
+                    <path
+                      d="M16 16H24M16 20H24M16 24H24"
+                      stroke="#333333"
+                      stroke-width="1"
+                      stroke-linecap="round"
+                    />
+                  </svg>
+                </div>
+                <h3 class="card-title">Ghee</h3>
+              </a>
+
+              <!-- Card 10: Rock Powders -->
+              <a href="#" class="category-card">
+                <div class="card-icon">
+                  <svg
+                    width="40"
+                    height="40"
+                    viewBox="0 0 40 40"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M12 20L16 12L20 18L24 10L28 20H12Z"
+                      stroke="#333333"
+                      stroke-width="1.5"
+                      fill="none"
+                      stroke-linejoin="round"
+                    />
+                    <path
+                      d="M10 28H30"
+                      stroke="#333333"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                    />
+                    <path
+                      d="M12 28L14 24H26L28 28"
+                      stroke="#333333"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </div>
+                <h3 class="card-title">Rock Powders</h3>
+              </a>
+            </div>
+
+            <!-- Featured Product Section -->
+            <div class="featured-section">
+              <div class="featured-box">
+                <div class="featured-decoration"></div>
+
+                <span class="badge">Best Seller</span>
+
+                <div class="featured-image">
+                  <img
+                    src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Crect fill='%23f1f5f9' width='200' height='200'/%3E%3Ctext x='50%25' y='50%25' font-size='48' font-weight='bold' text-anchor='middle' dominant-baseline='middle' fill='%23cbd5e1'%3EZP%3C/text%3E%3C/svg%3E"
+                    alt="Quantum Gold"
+                    style="width: auto; max-width: 100%; height: 10rem"
+                  />
                 </div>
 
-                <!-- Utility Icons -->
-                <div class="flex items-center gap-6">
-                    <button class="flex items-center gap-2 hover:text-[#00AEEF] transition-colors">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-                    </button>
-                    <button class="flex items-center gap-2 hover:text-[#00AEEF] transition-colors relative">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path></svg>
-                        <span class="absolute -top-1 -right-1 bg-[#00AEEF] text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center">0</span>
-                    </button>
-                    <button class="flex items-center gap-2 hover:text-[#00AEEF] transition-colors relative">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="21" r="1"></circle><circle cx="19" cy="21" r="1"></circle><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"></path></svg>
-                        <span class="absolute -top-1 -right-1 bg-[#00AEEF] text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center">0</span>
-                    </button>
-                </div>
+                <h4 class="featured-title">Quantum Gold</h4>
+                <p class="featured-description">
+                  Enhance your daily routine with our premium liquid gold
+                  supplements.
+                </p>
+
+                <a href="#" class="btn-cta">View Product</a>
+              </div>
             </div>
+          </div>
         </div>
-
-        <!-- Navigation Strip -->
-        <div class="border-t border-gray-100">
-            <div class="max-w-[1400px] mx-auto px-6">
-                <nav class="flex flex-col lg:flex-row lg:items-center justify-between">
-                    
-                    <!-- Left: Navigation Links -->
-                    <ul class="flex flex-col lg:flex-row lg:items-center gap-0 lg:gap-8 py-0">
-                        
-                        <!-- Trigger Element -->
-                        <li class="relative py-4 lg:py-4 border-b lg:border-none border-gray-50">
-                            <button id="menu-trigger" class="flex items-center gap-3 font-semibold text-[#333333] hover:text-[#00AEEF] transition-colors focus:outline-none w-full lg:w-auto justify-between lg:justify-start group">
-                                <div class="flex items-center gap-3">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"></line><line x1="4" x2="20" y1="6" y2="6"></line><line x1="4" x2="20" y1="18" y2="18"></line></svg>
-                                    <span class="text-base tracking-tight">Shop by Categories</span>
-                                </div>
-                                <svg id="chevron" class="w-4 h-4 transition-transform duration-300 group-hover:rotate-180 lg:hidden" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"></path></svg>
-                            </button>
-                        </li>
-
-                        <!-- Standard Links -->
-                        <li class="hidden lg:block"><a href="#" class="text-base font-medium text-gray-600 hover:text-[#00AEEF] transition-colors">Shop</a></li>
-                        <li class="hidden lg:block"><a href="#" class="text-base font-medium text-gray-600 hover:text-[#00AEEF] transition-colors flex items-center gap-1">Knowledge Base <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"></path></svg></a></li>
-                        <li class="hidden lg:block"><a href="#" class="text-base font-medium text-gray-600 hover:text-[#00AEEF] transition-colors">Fulfillment</a></li>
-                        <li class="hidden lg:block"><a href="#" class="text-base font-medium text-gray-600 hover:text-[#00AEEF] transition-colors">Bulk Ingredients</a></li>
-                    </ul>
-
-                    <!-- Right: Contact -->
-                    <div class="hidden lg:block py-4 text-base text-gray-500 font-medium">
-                        Call Us: +801-725-6768
-                    </div>
-                </nav>
-            </div>
-        </div>
-
-        <!-- MEGA MENU CONTAINER -->
-        <!-- Logic: Absolute on desktop, relative accordion on mobile -->
-        <div id="zp-mega-menu" class="absolute top-full left-0 w-full bg-white/95 backdrop-blur-xl border-t border-gray-100 shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05)] z-40 lg:pb-8">
-            <div class="max-w-[1400px] mx-auto px-6 py-6 lg:py-10">
-                
-                <div class="flex flex-col lg:flex-row gap-8">
-                    
-                    <!-- CATEGORIES GRID (Left Side) -->
-                    <!-- 5 Columns x 2 Rows = 10 Items -->
-                    <div class="flex-1">
-                        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 lg:gap-6">
-                            
-                            <!-- Card 1 -->
-                            <a href="#" class="group block text-center p-4 rounded-xl hover:bg-white border border-transparent hover:border-blue-100 hover:shadow-[0_4px_20px_-4px_rgba(0,174,239,0.1)] transition-all duration-200">
-                                <div class="w-16 h-16 mx-auto mb-4 relative flex items-center justify-center bg-gray-50 rounded-lg group-hover:bg-blue-50 transition-colors">
-                                    <img src="https://placehold.co/64x64/f1f5f9/333333?text=Pwd" alt="Powders" class="w-10 h-10 object-contain mix-blend-multiply opacity-80 group-hover:scale-110 transition-transform duration-300">
-                                </div>
-                                <h3 class="text-base font-semibold text-[#333333] group-hover:text-[#00AEEF] transition-colors">Powders</h3>
-                            </a>
-
-                            <!-- Card 2 -->
-                            <a href="#" class="group block text-center p-4 rounded-xl hover:bg-white border border-transparent hover:border-blue-100 hover:shadow-[0_4px_20px_-4px_rgba(0,174,239,0.1)] transition-all duration-200">
-                                <div class="w-16 h-16 mx-auto mb-4 relative flex items-center justify-center bg-gray-50 rounded-lg group-hover:bg-blue-50 transition-colors">
-                                    <img src="https://placehold.co/64x64/f1f5f9/333333?text=Liq" alt="Liquid" class="w-10 h-10 object-contain mix-blend-multiply opacity-80 group-hover:scale-110 transition-transform duration-300">
-                                </div>
-                                <h3 class="text-base font-semibold text-[#333333] group-hover:text-[#00AEEF] transition-colors">Liquid</h3>
-                            </a>
-
-                            <!-- Card 3 -->
-                            <a href="#" class="group block text-center p-4 rounded-xl hover:bg-white border border-transparent hover:border-blue-100 hover:shadow-[0_4px_20px_-4px_rgba(0,174,239,0.1)] transition-all duration-200">
-                                <div class="w-16 h-16 mx-auto mb-4 relative flex items-center justify-center bg-gray-50 rounded-lg group-hover:bg-blue-50 transition-colors">
-                                    <img src="https://placehold.co/64x64/f1f5f9/333333?text=Frq" alt="Frequency" class="w-10 h-10 object-contain mix-blend-multiply opacity-80 group-hover:scale-110 transition-transform duration-300">
-                                </div>
-                                <h3 class="text-base font-semibold text-[#333333] group-hover:text-[#00AEEF] transition-colors">Frequency</h3>
-                            </a>
-
-                            <!-- Card 4 -->
-                            <a href="#" class="group block text-center p-4 rounded-xl hover:bg-white border border-transparent hover:border-blue-100 hover:shadow-[0_4px_20px_-4px_rgba(0,174,239,0.1)] transition-all duration-200">
-                                <div class="w-16 h-16 mx-auto mb-4 relative flex items-center justify-center bg-gray-50 rounded-lg group-hover:bg-blue-50 transition-colors">
-                                    <img src="https://placehold.co/64x64/f1f5f9/333333?text=Oil" alt="Moringa Oils" class="w-10 h-10 object-contain mix-blend-multiply opacity-80 group-hover:scale-110 transition-transform duration-300">
-                                </div>
-                                <h3 class="text-base font-semibold text-[#333333] group-hover:text-[#00AEEF] transition-colors">Moringa Oils</h3>
-                            </a>
-
-                            <!-- Card 5 -->
-                            <a href="#" class="group block text-center p-4 rounded-xl hover:bg-white border border-transparent hover:border-blue-100 hover:shadow-[0_4px_20px_-4px_rgba(0,174,239,0.1)] transition-all duration-200">
-                                <div class="w-16 h-16 mx-auto mb-4 relative flex items-center justify-center bg-gray-50 rounded-lg group-hover:bg-blue-50 transition-colors">
-                                    <img src="https://placehold.co/64x64/f1f5f9/333333?text=Sup" alt="Supplements" class="w-10 h-10 object-contain mix-blend-multiply opacity-80 group-hover:scale-110 transition-transform duration-300">
-                                </div>
-                                <h3 class="text-base font-semibold text-[#333333] group-hover:text-[#00AEEF] transition-colors">Supplements</h3>
-                            </a>
-
-                            <!-- Card 6 -->
-                            <a href="#" class="group block text-center p-4 rounded-xl hover:bg-white border border-transparent hover:border-blue-100 hover:shadow-[0_4px_20px_-4px_rgba(0,174,239,0.1)] transition-all duration-200">
-                                <div class="w-16 h-16 mx-auto mb-4 relative flex items-center justify-center bg-gray-50 rounded-lg group-hover:bg-blue-50 transition-colors">
-                                    <img src="https://placehold.co/64x64/f1f5f9/333333?text=Dog" alt="Dog Minerals" class="w-10 h-10 object-contain mix-blend-multiply opacity-80 group-hover:scale-110 transition-transform duration-300">
-                                </div>
-                                <h3 class="text-base font-semibold text-[#333333] group-hover:text-[#00AEEF] transition-colors">Dog Minerals</h3>
-                            </a>
-
-                            <!-- Card 7 -->
-                            <a href="#" class="group block text-center p-4 rounded-xl hover:bg-white border border-transparent hover:border-blue-100 hover:shadow-[0_4px_20px_-4px_rgba(0,174,239,0.1)] transition-all duration-200">
-                                <div class="w-16 h-16 mx-auto mb-4 relative flex items-center justify-center bg-gray-50 rounded-lg group-hover:bg-blue-50 transition-colors">
-                                    <img src="https://placehold.co/64x64/f1f5f9/333333?text=Bth" alt="Bath Crystals" class="w-10 h-10 object-contain mix-blend-multiply opacity-80 group-hover:scale-110 transition-transform duration-300">
-                                </div>
-                                <h3 class="text-base font-semibold text-[#333333] group-hover:text-[#00AEEF] transition-colors">Bath Crystals</h3>
-                            </a>
-
-                            <!-- Card 8 -->
-                            <a href="#" class="group block text-center p-4 rounded-xl hover:bg-white border border-transparent hover:border-blue-100 hover:shadow-[0_4px_20px_-4px_rgba(0,174,239,0.1)] transition-all duration-200">
-                                <div class="w-16 h-16 mx-auto mb-4 relative flex items-center justify-center bg-gray-50 rounded-lg group-hover:bg-blue-50 transition-colors">
-                                    <img src="https://placehold.co/64x64/f1f5f9/333333?text=Orm" alt="Ormus Earth" class="w-10 h-10 object-contain mix-blend-multiply opacity-80 group-hover:scale-110 transition-transform duration-300">
-                                </div>
-                                <h3 class="text-base font-semibold text-[#333333] group-hover:text-[#00AEEF] transition-colors">Ormus Earth</h3>
-                            </a>
-
-                            <!-- Card 9 -->
-                            <a href="#" class="group block text-center p-4 rounded-xl hover:bg-white border border-transparent hover:border-blue-100 hover:shadow-[0_4px_20px_-4px_rgba(0,174,239,0.1)] transition-all duration-200">
-                                <div class="w-16 h-16 mx-auto mb-4 relative flex items-center justify-center bg-gray-50 rounded-lg group-hover:bg-blue-50 transition-colors">
-                                    <img src="https://placehold.co/64x64/f1f5f9/333333?text=Ghe" alt="Ghee" class="w-10 h-10 object-contain mix-blend-multiply opacity-80 group-hover:scale-110 transition-transform duration-300">
-                                </div>
-                                <h3 class="text-base font-semibold text-[#333333] group-hover:text-[#00AEEF] transition-colors">Ghee</h3>
-                            </a>
-
-                            <!-- Card 10 -->
-                            <a href="#" class="group block text-center p-4 rounded-xl hover:bg-white border border-transparent hover:border-blue-100 hover:shadow-[0_4px_20px_-4px_rgba(0,174,239,0.1)] transition-all duration-200">
-                                <div class="w-16 h-16 mx-auto mb-4 relative flex items-center justify-center bg-gray-50 rounded-lg group-hover:bg-blue-50 transition-colors">
-                                    <img src="https://placehold.co/64x64/f1f5f9/333333?text=Rck" alt="Rock Powders" class="w-10 h-10 object-contain mix-blend-multiply opacity-80 group-hover:scale-110 transition-transform duration-300">
-                                </div>
-                                <h3 class="text-base font-semibold text-[#333333] group-hover:text-[#00AEEF] transition-colors">Rock Powders</h3>
-                            </a>
-
-                        </div>
-                    </div>
-
-                    <!-- FEATURE SECTION (Right Side) -->
-                    <!-- Spans full height on desktop -->
-                    <div class="w-full lg:w-72 shrink-0">
-                        <div class="relative h-full bg-slate-50 rounded-2xl p-6 flex flex-col items-start justify-center overflow-hidden group hover:shadow-lg transition-shadow duration-300 border border-gray-100">
-                            
-                            <!-- Background Decoration -->
-                            <div class="absolute -right-10 -bottom-10 w-40 h-40 bg-blue-100 rounded-full blur-3xl opacity-50"></div>
-                            
-                            <!-- Badge -->
-                            <span class="inline-block px-3 py-1 bg-white text-[#00AEEF] text-xs font-semibold uppercase tracking-wider rounded-full shadow-sm mb-4">
-                                Best Seller
-                            </span>
-
-                            <!-- Image -->
-                            <div class="w-full flex justify-center mb-6">
-                                <img src="https://placehold.co/200x200/f8fafc/333333?text=ZP" alt="Featured Product" class="h-40 object-contain drop-shadow-xl group-hover:scale-105 transition-transform duration-500">
-                            </div>
-
-                            <!-- Content -->
-                            <h4 class="text-xl font-semibold tracking-tight text-[#333333] mb-1">Quantum Gold</h4>
-                            <p class="text-base text-gray-500 mb-6 line-clamp-2">Enhance your daily routine with our premium liquid gold supplements.</p>
-                            
-                            <!-- CTA Button -->
-                            <a href="#" class="w-full inline-flex items-center justify-center py-3 px-6 bg-[#00AEEF] text-white font-medium text-base rounded-full hover:bg-blue-600 transition-colors shadow-lg shadow-blue-500/30">
-                                View Product
-                            </a>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-
+      </div>
     </header>
 
-    <!-- Main Content Area (For visuals) -->
-    <main class="relative z-10 bg-slate-50 min-h-screen">
-        <div class="max-w-[1400px] mx-auto px-6 py-20">
-            <div class="text-center max-w-2xl mx-auto">
-                <h1 class="text-4xl md:text-5xl font-semibold tracking-tight text-[#333333] mb-6">
-                    Fulfillment &amp; Bottling
-                </h1>
-                <p class="text-lg text-gray-600">
-                    Discover solutions that streamline your business with our liquid and powder fulfillment options.
-                </p>
-            </div>
+    <!-- Main Content -->
+    <main>
+      <div class="main-content">
+        <div class="hero-text">
+          <h1 class="hero-heading">Fulfillment &amp; Bottling</h1>
+          <p class="hero-subheading">
+            Discover solutions that streamline your business with our liquid and
+            powder fulfillment options.
+          </p>
         </div>
+      </div>
     </main>
 
+    <!-- JavaScript: Mega Menu Toggle Logic -->
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const trigger = document.getElementById('menu-trigger');
-            const menu = document.getElementById('zp-mega-menu');
-            const chevron = document.getElementById('chevron');
-            let isMenuOpen = false;
+      document.addEventListener("DOMContentLoaded", () => {
+        const trigger = document.getElementById("menu-trigger");
+        const menu = document.getElementById("zp-mega-menu");
+        const chevron = trigger.querySelector(".chevron");
+        let isMenuOpen = false;
 
-            // Function to open menu
-            const openMenu = () => {
-                menu.classList.add('active');
-                if(chevron) chevron.classList.add('rotate-180');
-                isMenuOpen = true;
-            };
+        // Open Menu
+        const openMenu = () => {
+          menu.classList.add("active");
+          if (chevron) chevron.style.transform = "rotate(180deg)";
+          isMenuOpen = true;
+        };
 
-            // Function to close menu
-            const closeMenu = () => {
-                menu.classList.remove('active');
-                if(chevron) chevron.classList.remove('rotate-180');
-                isMenuOpen = false;
-            };
+        // Close Menu
+        const closeMenu = () => {
+          menu.classList.remove("active");
+          if (chevron) chevron.style.transform = "rotate(0deg)";
+          isMenuOpen = false;
+        };
 
-            // Toggle function
-            const toggleMenu = (e) => {
-                e.stopPropagation();
-                if (isMenuOpen) {
-                    closeMenu();
-                } else {
-                    openMenu();
-                }
-            };
+        // Toggle Menu
+        const toggleMenu = (e) => {
+          e.stopPropagation();
+          isMenuOpen ? closeMenu() : openMenu();
+        };
 
-            // Desktop Hover Logic
-            if (window.innerWidth >= 1024) {
-                trigger.addEventListener('mouseenter', openMenu);
-                // Keep menu open when hovering the menu itself
-                menu.addEventListener('mouseenter', openMenu);
-                
-                // Close when leaving trigger area (with delay to allow moving to menu)
-                trigger.addEventListener('mouseleave', (e) => {
-                    setTimeout(() => {
-                        if (!menu.matches(':hover')) {
-                            closeMenu();
-                        }
-                    }, 100);
-                });
+        // Desktop: Hover Logic
+        if (window.innerWidth >= 1024) {
+          trigger.addEventListener("mouseenter", openMenu);
+          menu.addEventListener("mouseenter", openMenu);
 
-                menu.addEventListener('mouseleave', closeMenu);
-            } 
-            
-            // Mobile/Tablet Click Logic & General Toggle
-            trigger.addEventListener('click', toggleMenu);
+          trigger.addEventListener("mouseleave", () => {
+            setTimeout(() => {
+              if (!menu.matches(":hover")) {
+                closeMenu();
+              }
+            }, 100);
+          });
 
-            // Close when clicking outside
-            document.addEventListener('click', (e) => {
-                if (isMenuOpen && !menu.contains(e.target) && !trigger.contains(e.target)) {
-                    closeMenu();
-                }
-            });
+          menu.addEventListener("mouseleave", closeMenu);
+        }
 
-            // Handle Resize
-            window.addEventListener('resize', () => {
-                // Reset state slightly on resize to prevent CSS conflicts
-                if(window.innerWidth >= 1024) {
-                     // Ensure opacity transitions work
-                }
-            });
+        // Mobile/Tablet: Click Logic
+        trigger.addEventListener("click", toggleMenu);
+
+        // Close on Outside Click
+        document.addEventListener("click", (e) => {
+          if (
+            isMenuOpen &&
+            !menu.contains(e.target) &&
+            !trigger.contains(e.target)
+          ) {
+            closeMenu();
+          }
         });
-    </script>
 
-</body></html>
+        // Responsive Behavior on Resize
+        window.addEventListener("resize", () => {
+          if (window.innerWidth >= 1024 && isMenuOpen) {
+            closeMenu();
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
