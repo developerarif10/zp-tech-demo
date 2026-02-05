@@ -3,6 +3,7 @@
 ## Key Features at a Glance
 
 ### ✅ Design Requirements - ALL MET
+
 - [x] Main Trigger: "Shop by Categories" button
 - [x] 5-column grid layout (10 categories across 2 rows)
 - [x] Card design with centered SVG icon, bold title, hover effect
@@ -11,6 +12,7 @@
 - [x] Responsive: Accordion drawer on < 1024px screens
 
 ### ✅ Technical Requirements - ALL MET
+
 - [x] Zero external dependencies (no libraries)
 - [x] CSS Grid for layout
 - [x] SVG icons (native, inline)
@@ -36,6 +38,7 @@ visibility: hidden
 ## Category Cards
 
 All 10 cards follow the same structure:
+
 ```html
 <a href="#" class="category-card">
   <div class="card-icon">
@@ -46,6 +49,7 @@ All 10 cards follow the same structure:
 ```
 
 **Hover Effects:**
+
 - Background: → #FFFFFF
 - Border: → #dbeafe with shadow
 - Icon: scale(1.1)
@@ -53,11 +57,11 @@ All 10 cards follow the same structure:
 
 ## Responsive Breakpoints
 
-| Breakpoint | Behavior | Grid |
-|---|---|---|
-| < 768px | Mobile, 2-column | 2 cols |
-| 768px - 1023px | Tablet, 3-column | 3 cols |
-| ≥ 1024px | Desktop, 5-column | 5 cols |
+| Breakpoint     | Behavior          | Grid   |
+| -------------- | ----------------- | ------ |
+| < 768px        | Mobile, 2-column  | 2 cols |
+| 768px - 1023px | Tablet, 3-column  | 3 cols |
+| ≥ 1024px       | Desktop, 5-column | 5 cols |
 
 ## JavaScript Behavior
 
@@ -85,23 +89,25 @@ index.html (main file)
 
 ## Customization Quick Links
 
-| Element | CSS Selector | Property |
-|---|---|---|
-| Menu width | `.menu-container` | max-width |
-| Grid columns | `.categories-grid` | grid-template-columns |
-| Primary color | `#zp-mega-menu` | Search: #00aeef |
-| Animation time | `#zp-mega-menu` | transition |
-| Featured width | `@media (min-width: 1024px)` | width: 18rem |
-| Card gap | `.categories-grid` | gap |
+| Element        | CSS Selector                 | Property              |
+| -------------- | ---------------------------- | --------------------- |
+| Menu width     | `.menu-container`            | max-width             |
+| Grid columns   | `.categories-grid`           | grid-template-columns |
+| Primary color  | `#zp-mega-menu`              | Search: #00aeef       |
+| Animation time | `#zp-mega-menu`              | transition            |
+| Featured width | `@media (min-width: 1024px)` | width: 18rem          |
+| Card gap       | `.categories-grid`           | gap                   |
 
 ## Performance Optimizations Applied
 
 1. **GPU Acceleration**
+
    - `will-change: opacity, transform, visibility`
    - `backface-visibility: hidden`
    - `contain: layout style paint`
 
 2. **Efficient Rendering**
+
    - Hardware-accelerated transforms
    - No layout thrashing
    - Pointer events managed

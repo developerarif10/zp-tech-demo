@@ -95,6 +95,7 @@
 ## 📐 Responsive Layout Grid
 
 ### Desktop (≥1024px)
+
 ```
 ┌─────────────────────────────────────────┐
 │ Card Card Card Card Card │ Featured     │
@@ -104,6 +105,7 @@
 ```
 
 ### Tablet (768-1023px)
+
 ```
 ┌─────────────────────────────────────┐
 │ Card Card Card                      │
@@ -115,6 +117,7 @@
 ```
 
 ### Mobile (<768px)
+
 ```
 ┌──────────────────┐
 │ Card Card        │
@@ -190,6 +193,7 @@ JavaScript (Vanilla)
 ## 📊 Color & Spacing System
 
 ### Color Tokens
+
 ```
 Primary Blue:      #00AEEF   (accents, hover)
 Hover Blue:        #0096c7   (button hover)
@@ -203,6 +207,7 @@ White:             #ffffff   (card backgrounds)
 ```
 
 ### Spacing Scale
+
 ```
 4px  (0.25rem)   - Fine details
 8px  (0.5rem)    - Small spacing
@@ -213,6 +218,7 @@ White:             #ffffff   (card backgrounds)
 ```
 
 ### Typography
+
 ```
 Font Family: 'Inter', system fonts
 Font Sizes:
@@ -308,6 +314,7 @@ Click Trigger Again      → classList.toggle      → Menu closes
 ## 📈 Performance Characteristics
 
 ### Rendering Path
+
 ```
 JavaScript Event
   ↓
@@ -325,6 +332,7 @@ Composite (GPU acceleration)
 ```
 
 ### FPS Profile
+
 ```
 Idle:              0 FPS (no animation)
 Menu Opening:      60 FPS (GPU accelerated)
@@ -359,6 +367,7 @@ Screen Reader Support
 ## 🔒 Conflict Prevention
 
 All styles are scoped to `#zp-mega-menu`:
+
 - No global class name collisions
 - No style conflicts with other components
 - Safe to use alongside other CSS
